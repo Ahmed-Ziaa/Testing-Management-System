@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Test - SRS Electricals</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    .container { width: 90%; max-width: 700px; margin: 40px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 2px 10px rgba(0,0,0,0.1); }
+    h2 { margin-bottom: 20px; text-align: center; color:#28a745; }
+    form { display: flex; flex-direction: column; gap: 15px; }
+    label { font-weight: bold; }
+    input, select, textarea { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; width: 100%; }
+    textarea { resize: vertical; min-height: 80px; }
+    button { padding: 10px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #218838; }
+    .back-link { display: block; margin-top: 15px; text-align: center; text-decoration: none; color: #007bff; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Add New Test</h2>
+  <form action="Logics/add_test.php" method="POST">
+    
+    <label for="product_id">Product ID:</label>
+    <input type="text" id="product_id" name="product_id" placeholder="Enter Related Product ID" required>
+
+    <label for="type_of_testing">Type of Testing:</label>
+    <input type="text" id="type_of_testing" name="type_of_testing" placeholder="e.g., High Voltage Test" required>
+
+    <label for="tester_name">Tester Name:</label>
+    <input type="text" id="tester_name" name="tester_name" placeholder="Enter Tester Name" required>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+      <option value="">-- Select Status --</option>
+      <option value="pass">Pass</option>
+      <option value="fail">Fail</option>
+    </select>
+
+    <label for="remarks">Remarks:</label>
+    <textarea id="remarks" name="remarks" placeholder="Enter remarks"></textarea>
+
+    <button type="submit">Save Test</button>
+  </form>
+
+  <a href="tests.php" class="back-link">⬅ Back to Test List</a>
+</div>
+
+<script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const error = params.get('error');
+  if (error) {
+    const popup = document.createElement('div');
+    popup.style.position = 'fixed';
+    popup.style.left = '50%';
+    popup.style.top = '20px';
+    popup.style.transform = 'translateX(-50%)';
+    popup.style.background = '#ffecec';
+    popup.style.color = '#a00';
+    popup.style.border = '1px solid #a00';
+    popup.style.padding = '12px 18px';
+    popup.style.borderRadius = '6px';
+    popup.style.zIndex = '99999';
+    popup.style.fontWeight = '700';
+    popup.textContent = decodeURIComponent(error);
+    document.body.appendChild(popup);
+  
+    setTimeout(()=> {
+      popup.style.transition = 'opacity 0.5s';
+      popup.style.opacity = '0';
+      setTimeout(()=> popup.remove(), 500);
+    }, 5500);
+  }
+
+  const fields = ['product_id','type_of_testing','tester_name','status','remarks'];
+  fields.forEach(name => {
+    const val = params.get(name);
+    if (val !== null) {
+      const el = document.querySelector(`[name="${name}"]`);
+      if (!el) return;
+      if (el.tagName.toLowerCase() === 'select') {
+        for (let i=0;i<el.options.length;i++){
+          if (el.options[i].value.toLowerCase() === val.toLowerCase()) {
+            el.selectedIndex = i;
+            break;
+          }
+        }
+      } else {
+        el.value = decodeURIComponent(val);
+      }
+    }
+  });
+})();
+</script>
+
+
+</body>
+</html>

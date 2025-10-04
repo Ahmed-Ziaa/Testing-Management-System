@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Product - SRS Electricals</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 700px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .form-btns {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .form-btns button, .form-btns a {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .save-btn {
+      background: #28a745;
+      color: white;
+    }
+
+    .cancel-btn {
+      background: #dc3545;
+      color: white;
+    }
+
+    .back-btn {
+      background: #007bff;
+      color: white;
+      display: block;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .form-btns {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>Add New Product</header>
+
+<div class="container">
+  <h2>Enter Product Details</h2>
+
+  <form action="Logics/add_product.php" method="POST">
+    <label for="product_id">Product ID (Auto Generated)</label>
+    <input type="text" id="product_id" name="product_id" placeholder="Auto Generated" readonly>
+
+    <label for="product_name">Product Name</label>
+    <input type="text" id="product_name" name="product_name" 
+           pattern="[A-Za-z0-9 ]{3,50}" maxlength="50"
+           title="Only letters, numbers and spaces allowed (3–50 characters)"
+           placeholder="Enter Product Name" required>
+
+    <label for="revise">Revision</label>
+    <input type="text" id="revise" name="revise" 
+           placeholder="Enter Revision" required>
+
+    <div class="form-btns">
+      <button type="submit" class="save-btn">Save Product</button>
+      <button type="reset" class="cancel-btn">Clear</button>
+    </div>
+  </form>
+
+  <a href="products.php" class="back-btn"> Back to Product List</a>
+</div>
+
+</body>
+</html>
